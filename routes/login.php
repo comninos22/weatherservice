@@ -2,6 +2,7 @@
 
 function handleLogin()
 {
+    global $SECRET;
     $body = Request::GetBody();
     if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
         echo json_encode(["error" => "invalid method"]);
@@ -13,7 +14,7 @@ function handleLogin()
     }
     print_r($body);
     $email = $body["email"];
-    $password = hash_hmac('sha256', $body["password"], $_SESSION["secret"]);
+    $password = hash_hmac('sha256', $body["password"], $SECRET);
     $db = DB::GetInstance();
     try {
         $user = $db->LoginUser($email, $password);

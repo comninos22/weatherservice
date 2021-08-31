@@ -2,28 +2,29 @@
 class Fetcher
 {
 
-    public static function GET($url,$payload)
+    public static function GET($url, $payload = false)
     {
         global $GET_CONFIG;
-        $args = $GET_CONFIG + [CURLOPT_POSTFIELDS => json_encode($payload)];
+        $args = $GET_CONFIG + ($payload ? [CURLOPT_POSTFIELDS => json_encode($payload)] : []);
         return CURLer::Call($url, $args);
     }
-    public static function POST($url, $payload)
+    public static function POST($url, $payload = false)
     {
         global $POST_CONFIG;
-        $args = $POST_CONFIG + [CURLOPT_POSTFIELDS => json_encode($payload)];
+        $args = $POST_CONFIG + ($payload ? [CURLOPT_POSTFIELDS => json_encode($payload)] : []);
         return CURLer::Call($url, $args);
     }
-    public static function DELETE($url, $payload)
+    public static function DELETE($url, $payload = false)
     {
         global $DELETE_CONFIG;
-        $args = $DELETE_CONFIG + [CURLOPT_POSTFIELDS => json_encode($payload)];
+        $args = $DELETE_CONFIG ;
+        print_r($args);
         return CURLer::Call($url, $args);
     }
-    public static function PATCH($url, $payload)
+    public static function PATCH($url, $payload = false)
     {
-        global $PATCH_CONFIG ;
-        $args = $PATCH_CONFIG + [CURLOPT_POSTFIELDS => json_encode($payload)];
+        global $PATCH_CONFIG;
+        $args = $PATCH_CONFIG + ($payload ? [CURLOPT_POSTFIELDS => json_encode($payload)] : []);
         return CURLer::Call($url, $args);
     }
 }
